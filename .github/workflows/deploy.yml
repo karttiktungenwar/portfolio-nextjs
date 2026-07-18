@@ -26,9 +26,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-modules: true
           node-version: "20"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+          cache: "npm" # <--- Change this line to be explicitly "npm"
 
       - name: Install dependencies
         run: npm ci
