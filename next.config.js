@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  output: "export", // Enforces a static HTML build
+  basePath: "/portfolio", // Matches your GitHub repository subfolder
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "**" }
-    ]
-  }
+    unoptimized: true, // Required for static exports
+  },
 };
 
 module.exports = nextConfig;
