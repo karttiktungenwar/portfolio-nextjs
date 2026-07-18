@@ -21,14 +21,19 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kartik Tungenwar — Android Developer",
+ icons: {
+    icon: "/favicon.ico", // Standard favicon
+    // shortcut: "/shortcut-icon.png", // Optional alternate formats
+    // apple: "/apple-touch-icon.png",  // Optional iOS icon
+  },
+  title: "Kartik Tungenwar — Mobile App Developer & Designer",
   description:
-    "Career portfolio of Kartik Tungenwar, Android developer specializing in secure, production-grade mobile applications.",
+    "Career portfolio of Kartik Tungenwar, Mobile App Developer & Designer specializing in secure, production-grade mobile applications.",
   metadataBase: new URL("https://karttiktungenwar.github.io"),
   openGraph: {
-    title: "Kartik Tungenwar — Android Developer",
+    title: "Kartik Tungenwar — Mobile App Developer & Designer",
     description:
-      "Career portfolio of Kartik Tungenwar, Android developer specializing in secure, production-grade mobile applications.",
+      "Career portfolio of Kartik Tungenwar, Mobile App Developer & Designer specializing in secure, production-grade mobile applications.",
     url: "https://karttiktungenwar.github.io/portfolio/",
     type: "website"
   }
