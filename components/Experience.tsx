@@ -14,11 +14,18 @@ export default function Experience() {
   return (
     <section id="experience" className="bg-panel/40 px-6 py-24">
       <div className="mx-auto max-w-4xl">
-        <SectionEyebrow index="02" label="release log — experience" />
+        <SectionEyebrow index="02" label="release log — experience and education" />
         <h2 className="mt-6 font-display text-3xl font-bold text-paper sm:text-4xl">
           Every role, tagged like a build.
         </h2>
 
+
+      {/* Grid Container: Stacks on mobile (grid-cols-1), side-by-side on large screens (lg:grid-cols-2) */}
+<div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-2">
+  
+  {/* Left Side: Experience */}
+        <div className="mt-16">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">experience</p>
         <ol className="relative mt-12 space-y-8 border-l border-line pl-8">
           {experience.map((job, i) => (
             <motion.li
@@ -48,6 +55,7 @@ export default function Experience() {
             </motion.li>
           ))}
         </ol>
+        </div>
 
         <div className="mt-16">
           <p className="font-mono text-xs uppercase tracking-widest text-muted">education</p>
@@ -70,6 +78,7 @@ export default function Experience() {
               </motion.li>
             ))}
           </ol>
+        </div>
         </div>
       </div>
     </section>
