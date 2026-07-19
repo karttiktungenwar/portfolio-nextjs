@@ -59,6 +59,7 @@ export default function Experience() {
 
         <div className="mt-16">
           <p className="font-mono text-xs uppercase tracking-widest text-muted">education</p>
+          <br className="mt-2 border-t border-line" />
           <ol className="mt-6 space-y-6 border-l border-line pl-8">
             {education.map((edu, i) => (
               <motion.li

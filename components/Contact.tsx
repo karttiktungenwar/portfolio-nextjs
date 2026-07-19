@@ -26,39 +26,45 @@ export default function Contact() {
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("loading");
-    setErrorMsg("");
+  e.preventDefault();
+  setStatus("loading");
+  setErrorMsg("");
 
-    const form = e.currentTarget;
-    const payload = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value
-    };
+  const form = e.currentTarget;
+  const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+  const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+  const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
 
-    try {
-      // This calls OUR OWN Next.js API route — never Firebase directly
-      // from the browser. The Firebase Admin credentials stay on the
-      // server and are never sent to the client. See app/api/contact/route.ts
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+  try {
+    // 1. Format your message payload safely for URLs
+    const textMessage = `New Lead Form Submission:\n\nName: ${name}\nPhone: ${phone}\nMessage: ${message}`;
+    const encodedText = encodeURIComponent(textMessage);
+    
+    // Your target WhatsApp link
+    const whatsappUrl = `https://wa.me/${profile.phone.replace(/\s/g, "")}?text=${encodedText}`;
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Something went wrong. Please try again.");
-      }
-
-      setStatus("success");
-      form.reset();
-    } catch (err) {
-      setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+    // 2. Trigger the WhatsApp app without losing the current page
+    // Using a targeted '_blank' window focus trick works smoothly across devices
+    const waWindow = window.open(whatsappUrl, "_blank");
+    if (waWindow) {
+      waWindow.blur();
+      window.focus(); // Pulls user focus right back to your form instantly
     }
+
+    // 3. (Optional) Still hit your internal API to save data in Firebase in the background
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, phone, message })
+    });
+
+    setStatus("success");
+    form.reset();
+  } catch (err) {
+    setStatus("error");
+    setErrorMsg("Form submitted, but could not back up data.");
   }
+}
 
   return (
     <section id="contact" className="bg-ink px-6 py-24">
